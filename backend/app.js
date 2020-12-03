@@ -4,16 +4,17 @@ const Airtable = require('airtable');
 const app = express();
 const port = 5000;
 
+app.use(express.json());
 require('dotenv').config();
 
 const connect_to_airtable = () => {
-  const base = require('airtable').base('appy0AvTNsgCfdL7U');
+  const base = Airtable.base('appy0AvTNsgCfdL7U');
   return base;
 };
 
 const fetch_record_by_email = (email) => {
   return new Promise((resolve, reject) => {
-    base('Addresses').select({filterByFormula: `{Borr Email} = "${email}"`})
+    base('Addresses').select({filterByFormula: `{Email} = "${email}"`})
     .firstPage(function(err, records) {
       if (err) {
         console.error(err);
@@ -26,14 +27,12 @@ const fetch_record_by_email = (email) => {
   });
 };
 
-const update_record_by_id = (id_) => {
+const update_record_by_id = (id_, fields) => {
   return new Promise((resolve, reject) => {
     base('Addresses').update([
       {
         "id": id_,
-        "fields": {
-          "Borrower First Name": "Robby"
-        }
+        "fields": fields
       }
     ], function(err, records) {
       if (err) {
@@ -41,7 +40,7 @@ const update_record_by_id = (id_) => {
         return;
       }
       records.forEach(function(record) {
-        resolve(record.get('Borrower First Name'));
+        resolve(record);
       });
     });
   });
@@ -51,10 +50,30 @@ const base = connect_to_airtable();
 
 app.get('/', async (req, res) => {
   res.setHeader('Content-Type', 'application/json');
-  // let record = await fetch_record_by_email(req.query['email']);
-  let record = await update_record_by_id("recpDZtipWMCL8YW9");
-  console.log(record);
-  res.json({'status':200});
+  if(req.query['email']) {
+    console.log(req.query['email']);
+  } else {
+    console.log('no query string');
+  }
+  res.status(200).json();
+});
+
+app.post('/find', async(req, res) => {
+  let data = await fetch_record_by_email(req.body['email']);
+  let record = {
+    "id": data.id,
+    "fields": data.fields
+  };
+  res.status(200).json(record);
+});
+
+app.post('/update', async(req, res) => {
+  let data = await update_record_by_id(req.body['id'], req.body['fields']);
+  let record = {
+    "id": data.id,
+    "fields": data.fields
+  };
+  res.status(200).json(record);
 });
 
 app.listen(port, () => {
