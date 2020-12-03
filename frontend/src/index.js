@@ -6,6 +6,7 @@ import HomePage from './Components/HomePage';
 ReactDOM.render(
   <Router>
     <div>
+      <Link to="/home">Home</Link>
       <Switch>
         <Route path="/home">
           <HomePage />
