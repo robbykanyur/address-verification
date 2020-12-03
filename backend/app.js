@@ -48,16 +48,6 @@ const update_record_by_id = (id_, fields) => {
 
 const base = connect_to_airtable();
 
-app.get('/', async (req, res) => {
-  res.setHeader('Content-Type', 'application/json');
-  if(req.query['email']) {
-    console.log(req.query['email']);
-  } else {
-    console.log('no query string');
-  }
-  res.status(200).json();
-});
-
 app.post('/find', async(req, res) => {
   let data = await fetch_record_by_email(req.body['email']);
   let record = {

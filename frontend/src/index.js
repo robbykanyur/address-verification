@@ -1,17 +1,11 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import HomePage from './Components/HomePage';
+import { BrowserRouter } from 'react-router-dom';
+
+import App from './App'
 
 ReactDOM.render(
-  <Router>
-    <div>
-      <Link to="/home">Home</Link>
-      <Switch>
-        <Route path="/home">
-          <HomePage />
-        </Route>
-      </Switch>
-    </div>
-  </Router>, document.getElementById('root')
+  <BrowserRouter>
+    <App />
+  </BrowserRouter>, document.getElementById('root')
 );
