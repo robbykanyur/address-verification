@@ -4,6 +4,8 @@ import queryString from 'query-string';
 
 import HomePage from './Pages/HomePage';
 import EmailProvidedPage from'./Pages/EmailProvidedPage';
+import EmailNotProvidedPage from './Pages/EmailNotProvidedPage';
+import ThankYouPage from './Pages/ThankYouPage';
 
 class Main extends Component {
   constructor() {
@@ -36,7 +38,15 @@ class Main extends Component {
                )} />
         <Route path="/email_provided"
                render={(props) => (
-                 <EmailProvidedPage handler={this.handler} providedEmail={this.state.providedEmail} {...props} />
+                 <EmailProvidedPage {...this.state} {...props} />
+               )} />
+        <Route path="/email_not_provided"
+               render={(props) => (
+                 <EmailNotProvidedPage {...this.state} {...props} />
+               )} />
+        <Route path="/thank_you"
+               render={(props) => (
+                 <ThankYouPage {...this.state} {...props}  />
                )} />
       </Switch>
     )

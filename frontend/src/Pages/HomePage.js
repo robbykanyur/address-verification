@@ -18,6 +18,7 @@ class HomePage extends Component {
         Email was provided: {emailWasProvided}<br />
         <Link to="/email_provided">Page: email was provided</Link><br />
         <Link to="/email_not_provided">Page: email was not provided</Link><br />
+        <Link to="/thank_you">Page: thank you</Link>
       </div>
     );
   };
