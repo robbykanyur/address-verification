@@ -1,20 +1,23 @@
 import React, { Component } from 'react';
-import queryString from 'query-string';
+import { Link } from 'react-router-dom';
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
   };
 
-  componentDidMount() {
-    let providedEmail = queryString.parse(this.props.location.search).email;
-    this.props.handler({providedEmail: providedEmail})
-  };
-
   render() {
+    let emailWasProvided = "false";
+    if(this.props.providedEmail) {
+      emailWasProvided = "true";
+    }
+
     return (
       <div>
-        howdy
+        Email: {this.props.providedEmail}<br />
+        Email was provided: {emailWasProvided}<br />
+        <Link to="/email_provided">Page: email was provided</Link><br />
+        <Link to="/email_not_provided">Page: email was not provided</Link><br />
       </div>
     );
   };
