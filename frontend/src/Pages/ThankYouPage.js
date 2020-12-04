@@ -6,8 +6,17 @@ class ThankYouPage extends Component {
   };
 
   render() {
+    let message;
+    if(this.props.addressWasModified) {
+      message = "updating";
+    } else {
+      message = "confirming";
+    }
+
     return (
-      <div>Thank you for updating your address!</div>
+      <div>
+        Thanks for {message} your address!
+      </div>
     );
   };
 };
