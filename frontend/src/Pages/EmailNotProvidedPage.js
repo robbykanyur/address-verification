@@ -1,36 +1,43 @@
 import React, { Component } from 'react';
-import { useHistory } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+
+import { getRecordFromAirtable } from '../helpers.js'
 
 class EmailNotProvidedPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            userSuppliedEmail: ""
+            providedEmail: "",
+            record: null
         };
+
         this.onInputChange = this.onInputChange.bind(this);
+        this.getRecordFromAirtable = getRecordFromAirtable;
     };
 
     onInputChange(event) {
         this.setState({
-            userSuppliedEmail: event.target.value
+            providedEmail: event.target.value
         });
     };
 
-    render() {
-        function submitAndNavigate() {
-            const history = useHistory();
-            this.props.handler(this.state);
-            history.push('/thank_you');
-        };
+    submitAndNavigate = () => {
+        this.getRecordFromAirtable();
+        this.props.handler(this.state);
+        if(this.state.record) {
+            this.props.history.push('/confirm_address')
+        }
+    };
 
+    render() {
         return(
             <div>
                 <p>Please enter your email address:</p>
                 <input type="text" onChange={this.onInputChange} />
-                <button onClick={submitAndNavigate}>Submit</button>
+                <button onClick={this.submitAndNavigate}>Submit</button>
             </div>
         )
     };
 }
 
-export default EmailNotProvidedPage;
+export default withRouter(EmailNotProvidedPage);

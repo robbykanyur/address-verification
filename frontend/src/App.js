@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
-import queryString from 'query-string';
 
 import HomePage from './Pages/HomePage';
 import EmailProvidedPage from'./Pages/EmailProvidedPage';
@@ -9,6 +8,8 @@ import EmailNotFoundPage from './Pages/EmailNotFoundPage';
 import ConfirmAddressPage from './Pages/ConfirmAddressPage';
 import UpdateAddressPage from './Pages/UpdateAddressPage'
 import ThankYouPage from './Pages/ThankYouPage';
+
+import { getEmailFromWindow } from './helpers.js'
 
 class Main extends Component {
   constructor() {
@@ -20,31 +21,12 @@ class Main extends Component {
     };
 
     this.handler = this.handler.bind(this);
+    this.getEmailFromWindow = getEmailFromWindow;
   };
 
   handler = (value) => {
     this.setState(value);
   }
-
-  getEmailFromWindow() {
-    this.setState({
-      providedEmail: queryString.parse(window.location.search).email
-    }, this.getRecordFromAirtable);
-  };
-
-  async getRecordFromAirtable() {
-    if(this.state.providedEmail) {
-      const data = await fetch('http://localhost:5000/find', 
-        {
-          method: 'POST',
-          headers: { 'Content-Type': 'Application/JSON' },
-          body: JSON.stringify({email: this.state.providedEmail})
-        }
-      ).then(res => res.json());
-      console.log(data);
-      this.setState({ record: data });
-    }
-  };
 
   componentDidMount() {
     this.getEmailFromWindow();
