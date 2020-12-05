@@ -1,7 +1,10 @@
 const express = require('express');
 const Airtable = require('airtable');
+const cors = require('cors');
 
 const app = express();
+app.use(cors());
+app.options('*', cors());
 const port = 5000;
 
 app.use(express.json());
@@ -54,6 +57,7 @@ app.post('/find', async(req, res) => {
     "id": data.id,
     "fields": data.fields
   };
+  console.log("Returning record with id " + data.id);
   res.status(200).json(record);
 });
 

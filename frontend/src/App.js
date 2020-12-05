@@ -15,9 +15,8 @@ class Main extends Component {
     super()
 
     this.state = {
-      emailWasProvided: false,
-      addressWasModified: false,
-      providedEmail: null
+      providedEmail: null,
+      record: null,
     };
 
     this.handler = this.handler.bind(this);
@@ -27,10 +26,28 @@ class Main extends Component {
     this.setState(value);
   }
 
-  componentDidMount() {
+  getEmailFromWindow() {
     this.setState({
       providedEmail: queryString.parse(window.location.search).email
-    });
+    }, this.getRecordFromAirtable);
+  };
+
+  async getRecordFromAirtable() {
+    if(this.state.providedEmail) {
+      const data = await fetch('http://localhost:5000/find', 
+        {
+          method: 'POST',
+          headers: { 'Content-Type': 'Application/JSON' },
+          body: JSON.stringify({email: this.state.providedEmail})
+        }
+      ).then(res => res.json());
+      console.log(data);
+      this.setState({ record: data });
+    }
+  };
+
+  componentDidMount() {
+    this.getEmailFromWindow();
   };
 
   render() {
