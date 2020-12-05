@@ -7,7 +7,7 @@ class ThankYouPage extends Component {
 
   render() {
     let message;
-    if(this.props.addressWasModified) {
+    if(this.props.addressChanged) {
       message = "updating";
     } else {
       message = "confirming";

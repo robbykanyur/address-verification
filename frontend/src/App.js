@@ -18,6 +18,7 @@ class Main extends Component {
     this.state = {
       providedEmail: null,
       record: null,
+      addressChanged: false
     };
 
     this.handler = this.handler.bind(this);
@@ -61,7 +62,7 @@ class Main extends Component {
                )} />
         <Route path="/update_address"
                render={(props) => (
-                 <UpdateAddressPage {...this.state} {...props}  />
+                 <UpdateAddressPage handler={this.handler} {...this.state} {...props}  />
                )} />
       </Switch>
     )
