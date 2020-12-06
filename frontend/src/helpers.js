@@ -19,7 +19,9 @@ export async function updateRecordInAirtable(id_, fields) {
                 Address: fields.address,
                 City: fields.city,
                 State: fields.state,
-                Zip: fields.zip
+                Zip: fields.zip,
+                Confirmed: true,
+                Modified: true
             }
         })
     }).then(res => res.json());

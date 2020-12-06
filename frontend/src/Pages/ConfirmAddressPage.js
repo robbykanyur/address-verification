@@ -16,7 +16,7 @@ class ConfirmAddressPage extends Component {
                 {this.props.record.fields.State}&nbsp;
                 {this.props.record.fields.Zip}
                 <br /><br />
-                <Link to="/thank_you">Yes</Link><br />
+                <Link to="/mark_as_confirmed">Yes</Link><br />
                 <Link to="/update_address">No</Link>
             </div>
         );

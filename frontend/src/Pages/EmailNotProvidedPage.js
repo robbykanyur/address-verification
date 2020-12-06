@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { withRouter } from 'react-router-dom';
 
 class EmailNotProvidedPage extends Component {
     constructor(props) {
@@ -37,4 +36,4 @@ class EmailNotProvidedPage extends Component {
     };
 }
 
-export default withRouter(EmailNotProvidedPage);
+export default EmailNotProvidedPage;

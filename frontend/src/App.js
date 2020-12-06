@@ -9,6 +9,7 @@ import ConfirmAddressPage from './Pages/ConfirmAddressPage';
 import UpdateAddressPage from './Pages/UpdateAddressPage'
 import ThankYouPage from './Pages/ThankYouPage';
 import RecordLookupPage from './Pages/RecordLookupPage';
+import MarkAsConfirmedPage from './Pages/MarkAsConfirmedPage';
 
 class Main extends Component {
   constructor() {
@@ -55,6 +56,10 @@ class Main extends Component {
         <Route path="/confirm_address"
                render={(props) => (
                  <ConfirmAddressPage {...this.state} {...props}  />
+               )} />
+        <Route path="/mark_as_confirmed"
+               render={(props) => (
+                 <MarkAsConfirmedPage {...this.state} {...props} />
                )} />
         <Route path="/update_address"
                render={(props) => (
