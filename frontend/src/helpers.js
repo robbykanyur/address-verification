@@ -7,8 +7,7 @@ export async function getRecordFromAirtable() {
             method: 'POST',
             headers: { 'Content-Type': 'Application/JSON' },
             body: JSON.stringify({email: this.state.providedEmail})
-        }
-        ).then(res => res.json());
+        }).then(res => res.json());
         this.setState({ record: data });
     }
 };
@@ -18,3 +17,20 @@ export function getEmailFromWindow() {
         providedEmail: queryString.parse(window.location.search).email
     }, getRecordFromAirtable);
 };
+
+export async function updateRecordInAirtable(id_, fields) {
+    const data = await fetch('http://localhost:5000/update',
+    {
+        method: 'POST',
+        headers: { 'Content-Type': 'Application/JSON' },
+        body: JSON.stringify({
+            id: id_,
+            fields: {
+                Address: fields.address,
+                City: fields.city,
+                State: fields.state,
+                Zip: fields.zip
+            }
+        })
+    }).then(res => res.json());
+}
