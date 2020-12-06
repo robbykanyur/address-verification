@@ -8,6 +8,7 @@ import EmailNotFoundPage from './Pages/EmailNotFoundPage';
 import ConfirmAddressPage from './Pages/ConfirmAddressPage';
 import UpdateAddressPage from './Pages/UpdateAddressPage'
 import ThankYouPage from './Pages/ThankYouPage';
+import RecordLookupPage from './Pages/RecordLookupPage';
 
 class Main extends Component {
   constructor() {
@@ -39,6 +40,10 @@ class Main extends Component {
                render={(props) => (
                  <EmailNotProvidedPage handler={this.handler} {...this.state} {...props} />
                )} />
+        <Route path="/record_lookup" 
+                render={(props) => (
+                  <RecordLookupPage handler={this.handler} {...this.state} {...props} />
+                )} />
         <Route path="/email_not_found"
                render={(props) => (
                  <EmailNotFoundPage handler={this.handler} {...this.state} {...props} />

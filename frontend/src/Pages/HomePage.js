@@ -27,7 +27,7 @@ class HomePage extends Component {
 
   nextPage() {
     if(this.state.providedEmail) {
-      this.props.history.push('/email_provided')
+      this.props.history.push('/record_lookup')
     } else {
       this.props.history.push('/email_not_provided')
     }

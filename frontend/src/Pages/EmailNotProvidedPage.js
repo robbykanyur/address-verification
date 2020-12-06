@@ -12,7 +12,7 @@ class EmailNotProvidedPage extends Component {
         };
 
         this.onInputChange = this.onInputChange.bind(this);
-        this.getRecordFromAirtable = getRecordFromAirtable;
+        this.getRecordFromAirtable = getRecordFromAirtable.bind(this);
     };
 
     onInputChange(event) {
@@ -22,7 +22,7 @@ class EmailNotProvidedPage extends Component {
     };
 
     submitAndNavigate = () => {
-        this.getRecordFromAirtable();
+        this.getRecordFromAirtable(this.state.providedEmail);
         this.props.handler(this.state);
         if(this.state.record) {
             this.props.history.push('/confirm_address')
