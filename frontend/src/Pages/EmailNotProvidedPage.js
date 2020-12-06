@@ -1,8 +1,6 @@
 import React, { Component } from 'react';
 import { withRouter } from 'react-router-dom';
 
-import { getRecordFromAirtable } from '../helpers.js'
-
 class EmailNotProvidedPage extends Component {
     constructor(props) {
         super(props);
@@ -12,7 +10,6 @@ class EmailNotProvidedPage extends Component {
         };
 
         this.onInputChange = this.onInputChange.bind(this);
-        this.getRecordFromAirtable = getRecordFromAirtable.bind(this);
     };
 
     onInputChange(event) {
@@ -21,20 +18,20 @@ class EmailNotProvidedPage extends Component {
         });
     };
 
-    submitAndNavigate = () => {
-        this.getRecordFromAirtable(this.state.providedEmail);
+    submitAndNavigate = (e) => {
+        e.preventDefault();
         this.props.handler(this.state);
-        if(this.state.record) {
-            this.props.history.push('/confirm_address')
-        }
+        this.props.history.push('/record_lookup')
     };
 
     render() {
         return(
             <div>
                 <p>Please enter your email address:</p>
-                <input type="text" onChange={this.onInputChange} />
-                <button onClick={this.submitAndNavigate}>Submit</button>
+                <form onSubmit={this.submitAndNavigate}>
+                    <input type="text" onChange={this.onInputChange} />
+                    <input type="submit" value="Submit" />
+                </form>
             </div>
         )
     };
