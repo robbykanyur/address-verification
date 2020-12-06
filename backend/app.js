@@ -20,12 +20,15 @@ const fetch_record_by_email = (email) => {
     base('Addresses').select({filterByFormula: `{Email} = "${email}"`})
     .firstPage(function(err, records) {
       if (err) {
-        console.error(err);
         return;
       }
-      records.forEach(function(r){
-        resolve(r);
-      });
+      if(records.length > 0) {
+        records.forEach(function(r){
+          resolve(r);
+        });
+      } else {
+        resolve({})
+      }
     });
   });
 };
@@ -39,8 +42,7 @@ const update_record_by_id = (id_, fields) => {
       }
     ], function(err, records) {
       if (err) {
-        console.error(err);
-        return;
+        resolve({});
       }
       records.forEach(function(record) {
         resolve(record);
@@ -53,20 +55,28 @@ const base = connect_to_airtable();
 
 app.post('/find', async(req, res) => {
   let data = await fetch_record_by_email(req.body['email']);
-  let record = {
-    "id": data.id,
-    "fields": data.fields
-  };
-  res.status(200).json(record);
+  if(data.id) {
+    let record = {
+      "id": data.id,
+      "fields": data.fields
+    };
+    res.status(200).json(record);
+  } else {
+    res.status(204).json();
+  }
 });
 
 app.post('/update', async(req, res) => {
   let data = await update_record_by_id(req.body['id'], req.body['fields']);
-  let record = {
-    "id": data.id,
-    "fields": data.fields
-  };
-  res.status(200).json(record);
+  if(data.id) {
+    let record = {
+      "id": data.id,
+      "fields": data.fields
+    };
+    res.status(200).json(record);
+  } else {
+    res.status(204).json();
+  }
 });
 
 app.listen(port, () => {

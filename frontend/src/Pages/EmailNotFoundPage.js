@@ -8,7 +8,7 @@ class EmailNotFoundPage extends Component {
     render() {
         return (
             <div>
-                Please enter your address:
+                That email was not found
             </div>
         );
     };
