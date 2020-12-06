@@ -1,5 +1,3 @@
-import queryString from 'query-string';
-
 export async function getRecordFromAirtable() {
     if(this.state.providedEmail) {
         const data = await fetch('http://localhost:5000/find', 
@@ -10,12 +8,6 @@ export async function getRecordFromAirtable() {
         }).then(res => res.json());
         this.setState({ record: data });
     }
-};
-
-export function getEmailFromWindow() {
-    this.setState({
-        providedEmail: queryString.parse(window.location.search).email
-    }, getRecordFromAirtable);
 };
 
 export async function updateRecordInAirtable(id_, fields) {

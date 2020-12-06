@@ -57,7 +57,6 @@ app.post('/find', async(req, res) => {
     "id": data.id,
     "fields": data.fields
   };
-  console.log("Returning record with id " + data.id);
   res.status(200).json(record);
 });
 

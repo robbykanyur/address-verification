@@ -9,8 +9,6 @@ import ConfirmAddressPage from './Pages/ConfirmAddressPage';
 import UpdateAddressPage from './Pages/UpdateAddressPage'
 import ThankYouPage from './Pages/ThankYouPage';
 
-import { getEmailFromWindow } from './helpers.js'
-
 class Main extends Component {
   constructor() {
     super()
@@ -20,25 +18,18 @@ class Main extends Component {
       record: null,
       addressChanged: false
     };
-
-    this.handler = this.handler.bind(this);
-    this.getEmailFromWindow = getEmailFromWindow;
   };
 
   handler = (value) => {
     this.setState(value);
   }
 
-  componentDidMount() {
-    this.getEmailFromWindow();
-  };
-
   render() {
     return (
       <Switch>
         <Route exact path="/" 
                render={(props) => (
-                 <HomePage {...this.state} {...props} />
+                 <HomePage handler={this.handler} {...this.state} {...props} />
                )} />
         <Route path="/email_provided"
                render={(props) => (

@@ -1,28 +1,41 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import queryString from 'query-string';
 
 class HomePage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      providedEmail: null
+    }
   };
 
-  render() {
-    let emailWasProvided = "false";
-    if(this.props.providedEmail) {
-      emailWasProvided = "true";
-    }
+  componentDidMount() {
+    let providedEmail = queryString.parse(window.location.search).email;
+      if(providedEmail) {
+      this.setState({
+        providedEmail: providedEmail
+      }, this.updateParentState);
+      } else {
+        this.nextPage();
+      }
+  }
 
+  updateParentState() {
+    this.props.handler(this.state);
+    this.nextPage();
+  }
+
+  nextPage() {
+    if(this.state.providedEmail) {
+      this.props.history.push('/email_provided')
+    } else {
+      this.props.history.push('/email_not_provided')
+    }
+  }
+
+  render() {
     return (
-      <div>
-        Email: {this.props.providedEmail}<br />
-        Email was provided: {emailWasProvided}<br />
-        <Link to="/email_provided">Page: email was provided</Link><br />
-        <Link to="/email_not_provided">Page: email was not provided</Link><br />
-        <Link to="/email_not_found">Page: email was not found</Link><br />
-        <Link to="/confirm_address">Page: confirm address</Link><br />
-        <Link to="/update_address">Page: update address</Link><br />
-        <Link to="/thank_you">Page: thank you</Link>
-      </div>
+      <div></div>
     );
   };
 };
