@@ -8,7 +8,7 @@ class EmailNotFoundPage extends Component {
             provided: {
                 firstName: null,
                 lastName: null,
-                email: null,
+                email: this.props.providedEmail,
                 address: null,
                 city: null,
                 state: null,
@@ -18,7 +18,7 @@ class EmailNotFoundPage extends Component {
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-        this.createRecord = this.updateRecord.bind(this);
+        this.createRecord = this.createRecord.bind(this);
         this.createRecordInAirtable = createRecordInAirtable.bind(this);
     };
 
@@ -34,7 +34,7 @@ class EmailNotFoundPage extends Component {
     };
 
     handleSubmit(e) {
-        this.createRecord();
+        this.createRecord(this.state.provided);
     }
 
     createRecord() {
@@ -50,7 +50,6 @@ class EmailNotFoundPage extends Component {
                 <br /><br />
                 <input type="text" placeholder="First Name" name="firstName" onChange={this.handleChange} /><br />
                 <input type="text" placeholder="Last Name" name="lastName" onChange={this.handleChange} /><br />
-                <input type="email" placeholder="Email Address" name="email" onchange={this.handleChange} /><br />
                 <input type="text" placeholder="Street Address" onChange={this.handleChange} name="address" /><br />
                 <input type="text" placeholder="City" onChange={this.handleChange} name="city" /><br />
                 <input type="text" placeholder="State" onChange={this.handleChange} name="state" /><br />
