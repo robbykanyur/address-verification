@@ -18,8 +18,12 @@ class RecordLookupPage extends Component {
 
     nextPage() {
         this.props.handler(this.state);
-        this.props.history.push('/confirm_address');
-    }
+        if(this.state.record.fields) {
+            this.props.history.push('/confirm_address');
+        } else {
+            this.props.history.push('/email_not_found')
+        };
+    };
     
     componentDidMount() {
         this.getRecord().then(res => this.setState({record: res}, this.nextPage));
