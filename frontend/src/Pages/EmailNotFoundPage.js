@@ -34,6 +34,7 @@ class EmailNotFoundPage extends Component {
     };
 
     handleSubmit(e) {
+        e.preventDefault();
         this.createRecord(this.state.provided);
     }
 
@@ -48,13 +49,15 @@ class EmailNotFoundPage extends Component {
             <div>
                 Please enter your contact information:
                 <br /><br />
-                <input type="text" placeholder="First Name" name="firstName" onChange={this.handleChange} /><br />
-                <input type="text" placeholder="Last Name" name="lastName" onChange={this.handleChange} /><br />
-                <input type="text" placeholder="Street Address" onChange={this.handleChange} name="address" /><br />
-                <input type="text" placeholder="City" onChange={this.handleChange} name="city" /><br />
-                <input type="text" placeholder="State" onChange={this.handleChange} name="state" /><br />
-                <input type="text" placeholder="Zip" onChange={this.handleChange} name="zip" /><br />
-                <button onClick={this.handleSubmit}>Submit</button>
+                <form onSubmit={this.handleSubmit}>
+                    <input type="text" placeholder="First Name" name="firstName" onChange={this.handleChange} /><br />
+                    <input type="text" placeholder="Last Name" name="lastName" onChange={this.handleChange} /><br />
+                    <input type="text" placeholder="Street Address" onChange={this.handleChange} name="address" /><br />
+                    <input type="text" placeholder="City" onChange={this.handleChange} name="city" /><br />
+                    <input type="text" placeholder="State" onChange={this.handleChange} name="state" /><br />
+                    <input type="text" placeholder="Zip" onChange={this.handleChange} name="zip" /><br />
+                    <input type="submit" value="Submit" />
+                </form>
             </div>
         );
     };

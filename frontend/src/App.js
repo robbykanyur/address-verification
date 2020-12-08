@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Route, Switch } from 'react-router-dom';
 
 import HomePage from './Pages/HomePage';
-import EmailProvidedPage from'./Pages/EmailProvidedPage';
 import EmailNotProvidedPage from './Pages/EmailNotProvidedPage';
 import EmailNotFoundPage from './Pages/EmailNotFoundPage';
 import ConfirmAddressPage from './Pages/ConfirmAddressPage';
@@ -32,10 +31,6 @@ class Main extends Component {
         <Route exact path="/" 
                render={(props) => (
                  <HomePage handler={this.handler} {...this.state} {...props} />
-               )} />
-        <Route path="/email_provided"
-               render={(props) => (
-                 <EmailProvidedPage {...this.state} {...props} />
                )} />
         <Route path="/email_not_provided"
                render={(props) => (

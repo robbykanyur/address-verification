@@ -38,6 +38,7 @@ class UpdateAddressPage extends Component {
     }
 
     handleSubmit(e) {
+        e.preventDefault();
         this.setState({
             addressChanged: true
         }, this.updateRecord)
@@ -48,11 +49,13 @@ class UpdateAddressPage extends Component {
             <div>
                 Please enter your current address:
                 <br /><br />
+                <form onSubmit={this.handleSubmit}>
                 <input type="text" placeholder="Street Address" onChange={this.handleChange} name="address" /><br />
                 <input type="text" placeholder="City" onChange={this.handleChange} name="city" /><br />
                 <input type="text" placeholder="State" onChange={this.handleChange} name="state" /><br />
                 <input type="text" placeholder="Zip" onChange={this.handleChange} name="zip" /><br />
-                <button onClick={this.handleSubmit}>Submit</button>
+                <input type="submit" value="Submit" />
+                </form>
             </div>
         );
     };
