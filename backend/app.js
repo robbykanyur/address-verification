@@ -44,9 +44,11 @@ const update_record_by_id = (id_, fields) => {
       if (err) {
         resolve({});
       }
-      records.forEach(function(record) {
-        resolve(record);
-      });
+      if(records) {
+        records.forEach(function(record) {
+          resolve({});
+        });
+      };
     });
   });
 };
@@ -62,7 +64,7 @@ app.post('/find', async(req, res) => {
     };
     res.status(200).json(record);
   } else {
-    res.status(204).json();
+    res.status(204).json({error: 'Record not found'});
   }
 });
 
@@ -75,7 +77,7 @@ app.post('/update', async(req, res) => {
     };
     res.status(200).json(record);
   } else {
-    res.status(204).json();
+    res.status(204).json({error: 'Record not found'});
   }
 });
 

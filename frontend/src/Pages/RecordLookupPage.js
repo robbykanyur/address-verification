@@ -13,7 +13,7 @@ class RecordLookupPage extends Component {
     };
 
     async getRecord() {
-        return this.getRecordFromAirtable(this.props.providedEmail);
+        return await this.getRecordFromAirtable(this.props.providedEmail);
     };
 
     nextPage() {
@@ -22,7 +22,7 @@ class RecordLookupPage extends Component {
     }
     
     componentDidMount() {
-        this.getRecord().then(res => this.setState({record: res.record}, this.nextPage));
+        this.getRecord().then(res => this.setState({record: res}, this.nextPage));
     }
 
     render() {

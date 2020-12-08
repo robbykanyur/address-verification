@@ -4,8 +4,14 @@ export async function getRecordFromAirtable(providedEmail) {
         method: 'POST',
         headers: { 'Content-Type': 'Application/JSON' },
         body: JSON.stringify({email: providedEmail})
-    }).then(res => res.json());
-    return {record: data};
+    }).then((res) => {
+        if(res.status === 204) {
+            return {record: null}
+        } else {
+            return res.json();
+        }
+    });
+    return data;
 };
 
 export async function updateRecordInAirtable(id_, fields) {
