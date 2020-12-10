@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { createRecordInAirtable } from '../helpers'
 
 class EmailNotFoundPage extends Component {
     constructor(props) {
@@ -13,13 +12,14 @@ class EmailNotFoundPage extends Component {
                 city: null,
                 state: null,
                 zip: null
-            }
+            },
+            recordChangeType: null
         };
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.createRecord = this.createRecord.bind(this);
-        this.createRecordInAirtable = createRecordInAirtable.bind(this);
+        this.nextPage = this.nextPage.bind(this);
     };
 
     handleChange(e) {
@@ -35,14 +35,31 @@ class EmailNotFoundPage extends Component {
 
     handleSubmit(e) {
         e.preventDefault();
-        this.createRecord(this.state.provided);
+        this.createRecord();
     }
 
-    createRecord() {
-        this.props.handler(this.state);
-        this.createRecordInAirtable(this.state.provided);
-        this.props.history.push('/thank_you');
+    async createRecord() {
+        const data = await fetch('http://localhost:5000/create_record', {
+            method: 'POST',
+            headers: { 'Content-Type': 'Application/JSON' },
+            body: JSON.stringify({
+                id: this.props.record.id,
+                fields: this.state.provided
+            })
+        }).then(res => res.json());
+
+        await this.nextPage(data);
     };
+
+    async nextPage(data) {
+        if(data.id) {
+            this.setState({
+                recordChangeType: 'providing'
+            });
+        };
+        await this.props.handler(this.state);
+        await this.props.history.push('/thank_you');
+    }
 
     render() {
         return (

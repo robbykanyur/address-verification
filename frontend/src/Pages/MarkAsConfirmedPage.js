@@ -21,7 +21,6 @@ class MarkAsConfirmedPage extends Component {
 
     handleResponse(res) {
         const data = res;
-        console.log(data);
         this.props.history.push('/thank_you');
     }
 

@@ -79,19 +79,6 @@ const create_record = (fields) => {
   });
 }
 
-app.post('/create', async(req, res) => {
-  let data = await create_record(req.body['fields']);
-  if (data.id) {
-    let record = {
-      "id": data.id,
-      "fields": data.fields
-    };
-    res.status(200).json(record);
-  } else {
-    res.status(204).json({error: 'Record could not be created'});
-  };
-});
-
 app.post('/record_lookup', async(req, res) => {
   let data = await fetch_record_by_email(req.body['email']);
 
@@ -142,6 +129,31 @@ app.post('/update_address', async(req, res) => {
     res.status(400).json({ error: 'Record not found'});
   }
   
+});
+
+app.post('/create_record', async(req, res) => {
+  let fields = req.body['fields'];
+  let submission = {
+    "First Name": fields.firstName,
+    "Last Name": fields.lastName,
+    Email: fields.email,
+    Address: fields.address,
+    City: fields.city,
+    State: fields.state,
+    Zip: fields.zip,
+  };
+
+  let data = await create_record(submission);
+
+  if(data.id) {
+    let record = {
+      "id": data.id,
+      "fields": data.fields,
+    };
+    res.status(200).json(record);
+  } else {
+    res.status(400).json({ error: 'Record could not be created' });
+  };
 });
 
 app.listen(port, () => {

@@ -35,16 +35,6 @@ class UpdateAddressPage extends Component {
         this.updateRecord();
     }
 
-    async nextPage(data) {
-        if(data.id) {
-            this.setState({
-                recordChangeType: 'updating'
-            });
-        }
-        await this.props.handler(this.state);
-        await this.props.history.push('/thank_you');
-    }
-
     async updateRecord() {
         const data = await fetch('http://localhost:5000/update_address', {
             method: 'POST',
@@ -56,6 +46,16 @@ class UpdateAddressPage extends Component {
         }).then(res => res.json());
 
         await this.nextPage(data);
+    }
+
+    async nextPage(data) {
+        if(data.id) {
+            this.setState({
+                recordChangeType: 'updating'
+            });
+        }
+        await this.props.handler(this.state);
+        await this.props.history.push('/thank_you');
     }
 
     render() {
