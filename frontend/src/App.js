@@ -17,7 +17,9 @@ class Main extends Component {
     this.state = {
       providedEmail: null,
       record: null,
-      addressChanged: false
+      recordChanged: false,
+      recordUpdated: false,
+      recordCreated: false
     };
   };
 

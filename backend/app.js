@@ -79,8 +79,9 @@ const create_record = (fields) => {
   });
 }
 
-app.post('/find', async(req, res) => {
+app.post('/record_lookup', async(req, res) => {
   let data = await fetch_record_by_email(req.body['email']);
+
   if(data.id) {
     let record = {
       "id": data.id,
@@ -88,7 +89,7 @@ app.post('/find', async(req, res) => {
     };
     res.status(200).json(record);
   } else {
-    res.status(204).json({error: 'Record not found'});
+    res.status(400).json({error: 'Record not found'})
   }
 });
 

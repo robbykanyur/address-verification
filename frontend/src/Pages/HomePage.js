@@ -9,6 +9,11 @@ class HomePage extends Component {
     }
   };
 
+  updateParentState() {
+    this.props.handler(this.state);
+    this.nextPage();
+  }
+
   componentDidMount() {
     let providedEmail = queryString.parse(window.location.search).email;
       if(providedEmail) {
@@ -18,11 +23,6 @@ class HomePage extends Component {
       } else {
         this.nextPage();
       }
-  }
-
-  updateParentState() {
-    this.props.handler(this.state);
-    this.nextPage();
   }
 
   nextPage() {
