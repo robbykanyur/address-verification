@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { updateRecordInAirtable } from '../helpers'
 
 class UpdateAddressPage extends Component {
     constructor(props) {
@@ -11,13 +10,13 @@ class UpdateAddressPage extends Component {
                 state: null,
                 zip: null,
             },
-            addressChanged: false
+            recordChangeType: null
         }
 
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.updateRecord = this.updateRecord.bind(this);
-        this.updateRecordInAirtable = updateRecordInAirtable.bind(this);
+        this.nextPage = this.nextPage.bind(this);
     }
 
     handleChange(e) {
@@ -31,17 +30,32 @@ class UpdateAddressPage extends Component {
         });
     };
 
-    updateRecord() {
-        this.props.handler(this.state);
-        this.updateRecordInAirtable(this.props.record.id, this.state.provided);
-        this.props.history.push('/thank_you');
-    }
-
     handleSubmit(e) {
         e.preventDefault();
-        this.setState({
-            addressChanged: true
-        }, this.updateRecord)
+        this.updateRecord();
+    }
+
+    async nextPage(data) {
+        if(data.id) {
+            this.setState({
+                recordChangeType: 'updating'
+            });
+        }
+        await this.props.handler(this.state);
+        await this.props.history.push('/thank_you');
+    }
+
+    async updateRecord() {
+        const data = await fetch('http://localhost:5000/update_address', {
+            method: 'POST',
+            headers: {'Content-Type': 'Application/JSON'},
+            body: JSON.stringify({
+                id: this.props.record.id,
+                fields: this.state.provided
+            })
+        }).then(res => res.json());
+
+        await this.nextPage(data);
     }
 
     render() {

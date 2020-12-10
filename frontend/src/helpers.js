@@ -1,22 +1,3 @@
-export async function updateRecordInAirtable(id_, fields) {
-    const data = await fetch('http://localhost:5000/update',
-    {
-        method: 'POST',
-        headers: { 'Content-Type': 'Application/JSON' },
-        body: JSON.stringify({
-            id: id_,
-            fields: {
-                Address: fields.address,
-                City: fields.city,
-                State: fields.state,
-                Zip: fields.zip,
-                Confirmed: true,
-                Modified: true
-            }
-        })
-    }).then(res => res.json());
-}
-
 export async function createRecordInAirtable(fields) {
     const data = await fetch('http://localhost:5000/create',
     {

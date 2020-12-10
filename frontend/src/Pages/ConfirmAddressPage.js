@@ -6,6 +6,8 @@ class ConfirmAddressPage extends Component {
         super(props);
         
         this.handleClick = this.handleClick.bind(this);
+        this.handleYes = this.handleYes.bind(this);
+        this.handleNo = this.handleNo.bind(this);
     }
 
     async markConfirmed() {
@@ -19,14 +21,24 @@ class ConfirmAddressPage extends Component {
         }).then(res => res.json());
     }
 
+    async handleYes() {
+        this.markConfirmed();
+        this.props.handler({recordChangeType: 'confirming'});
+        this.props.history.push('/thank_you');
+    }
+
+    async handleNo() {
+        this.props.history.push('/update_address');
+    }
+
     async handleClick(e) {
         e.preventDefault();
         let option = e.currentTarget.dataset.option;
 
         if(option == 'yes') {
-            await this.markConfirmed();
+            await this.handleYes();
         } else {
-            console.log('NO');
+            await this.handleNo();
         }
     }
 

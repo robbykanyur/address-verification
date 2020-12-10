@@ -109,7 +109,6 @@ app.post('/record_lookup', async(req, res) => {
 app.post('/confirm_address', async(req, res) => {
   let data = await update_record_by_id(req.body['id'], {Confirmed: true});
 
-  console.log(data.id);
   if(data) {
     let record = {
       "id": data.id,
@@ -119,6 +118,30 @@ app.post('/confirm_address', async(req, res) => {
     } else {
       res.status(400).json({ error: 'Record not found' });
     }
+});
+
+app.post('/update_address', async(req, res) => {
+  let fields = req.body['fields']
+
+  let submission = {
+      "Address": fields.address,
+      "City": fields.city,
+      "State": fields.state,
+      "Zip": fields.zip
+  };
+
+  let data = await update_record_by_id(req.body['id'], submission);
+
+  if(data.id) {
+    let record = {
+      "id": data.id,
+      "fields": data.fields
+    };
+    res.status(200).json(record);
+  } else {
+    res.status(400).json({ error: 'Record not found'});
+  }
+  
 });
 
 app.listen(port, () => {

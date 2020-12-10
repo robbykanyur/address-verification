@@ -6,12 +6,7 @@ class ThankYouPage extends Component {
   };
 
   render() {
-    let message;
-    if(this.props.addressChanged) {
-      message = "updating";
-    } else {
-      message = "confirming";
-    }
+    let message = this.props.recordChangeType;
 
     return (
       <div>

@@ -50,7 +50,7 @@ class Main extends Component {
                )} />
         <Route path="/confirm_address"
                render={(props) => (
-                 <ConfirmAddressPage {...this.state} {...props}  />
+                 <ConfirmAddressPage handler={this.handler} {...this.state} {...props}  />
                )} />
         <Route path="/mark_as_confirmed"
                render={(props) => (
