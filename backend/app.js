@@ -79,6 +79,19 @@ const create_record = (fields) => {
   });
 }
 
+app.post('/create', async(req, res) => {
+  let data = await create_record(req.body['fields']);
+  if (data.id) {
+    let record = {
+      "id": data.id,
+      "fields": data.fields
+    };
+    res.status(200).json(record);
+  } else {
+    res.status(204).json({error: 'Record could not be created'});
+  };
+});
+
 app.post('/record_lookup', async(req, res) => {
   let data = await fetch_record_by_email(req.body['email']);
 
@@ -93,30 +106,19 @@ app.post('/record_lookup', async(req, res) => {
   }
 });
 
-app.post('/update', async(req, res) => {
-  let data = await update_record_by_id(req.body['id'], req.body['fields']);
-  if(data.id) {
-    let record = {
-      "id": data.id,
-      "fields": data.fields
-    };
-    res.status(200).json(record);
-  } else {
-    res.status(204).json({error: 'Record not found'});
-  };
-});
+app.post('/confirm_address', async(req, res) => {
+  let data = await update_record_by_id(req.body['id'], {Confirmed: true});
 
-app.post('/create', async(req, res) => {
-  let data = await create_record(req.body['fields']);
-  if (data.id) {
+  console.log(data.id);
+  if(data) {
     let record = {
       "id": data.id,
       "fields": data.fields
     };
     res.status(200).json(record);
-  } else {
-    res.status(204).json({error: 'Record could not be created'});
-  };
+    } else {
+      res.status(400).json({ error: 'Record not found' });
+    }
 });
 
 app.listen(port, () => {
