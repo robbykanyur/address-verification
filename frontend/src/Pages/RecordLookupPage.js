@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { trackPromise } from 'react-promise-tracker';
 
 class RecordLookupPage extends Component {
     constructor(props) {
@@ -19,7 +20,7 @@ class RecordLookupPage extends Component {
     };
 
     async request() {
-        const data = await fetch('http://localhost:5000/record_lookup',
+        const data = await trackPromise (fetch('http://localhost:5000/record_lookup',
         {
             method: 'POST',
             headers: { 'Content-Type': 'Application/JSON' },
@@ -30,7 +31,7 @@ class RecordLookupPage extends Component {
             } else {
                 return res.json();
             }
-        });
+        }));
         
         return data;
     }
