@@ -26,7 +26,9 @@ class RecordLookupPage extends Component {
             headers: { 'Content-Type': 'Application/JSON' },
             body: JSON.stringify({email: this.props.providedEmail})
         }).then(res => {
-            if(res.status == 400) {
+            if(res.status == 422) {
+                return res.status;
+            } else if(res.status == 400) {
                 return { record: null }
             } else {
                 return res.json();

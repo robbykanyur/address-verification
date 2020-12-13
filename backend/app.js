@@ -1,6 +1,7 @@
 const express = require('express');
 const Airtable = require('airtable');
 const cors = require('cors');
+const { check, validationResult } = require('express-validator');
 
 const app = express();
 app.use(cors());
@@ -79,17 +80,25 @@ const create_record = (fields) => {
   });
 }
 
-app.post('/record_lookup', async(req, res) => {
+app.post('/record_lookup', [
+    check('email').isEmail()
+], async(req, res) => {
   let data = await fetch_record_by_email(req.body['email']);
-
-  if(data.id) {
-    let record = {
-      "id": data.id,
-      "fields": data.fields
-    };
-    res.status(200).json(record);
+  const errors = validationResult(req);
+  console.log(errors);
+  
+  if(!errors.isEmpty()) {
+    return res.status(422).json({errors: errors.array() });
   } else {
-    res.status(400).json({error: 'Record not found'})
+    if(data.id) {
+      let record = {
+        "id": data.id,
+        "fields": data.fields
+      };
+      res.status(200).json(record);
+    } else {
+      res.status(400).json({error: 'Record not found'})
+    }
   }
 });
 
