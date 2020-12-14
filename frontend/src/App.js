@@ -17,6 +17,7 @@ class Main extends Component {
       providedEmail: null,
       record: null,
       recordChangeType: null,
+      errors: null
     };
   };
 
@@ -26,36 +27,44 @@ class Main extends Component {
 
   render() {
     return (
-      <Switch>
-        <Route exact path="/" 
-              render={(props) => (
-                <HomePage handler={this.handler} {...this.state} {...props} />
-              )} />
-        <Route path="/email_not_provided"
-              render={(props) => (
-                <EmailNotProvidedPage handler={this.handler} {...this.state} {...props} />
-              )} />
-        <Route path="/record_lookup" 
+      <div>
+        <div id="errors" style={{color: 'red'}}>
+          {this.state.errors && this.state.errors.map((error, index) => {
+            <p key={index}>{error.msg}</p>
+          })}
+        </div>
+
+        <Switch>
+          <Route exact path="/" 
                 render={(props) => (
-                  <RecordLookupPage handler={this.handler} {...this.state} {...props} />
+                  <HomePage handler={this.handler} {...this.state} {...props} />
                 )} />
-        <Route path="/email_not_found"
-              render={(props) => (
-                <EmailNotFoundPage handler={this.handler} {...this.state} {...props} />
-              )} />
-        <Route path="/thank_you"
-              render={(props) => (
-                <ThankYouPage {...this.state} {...props}  />
-              )} />
-        <Route path="/confirm_address"
-              render={(props) => (
-                <ConfirmAddressPage handler={this.handler} {...this.state} {...props}  />
-              )} />
-        <Route path="/update_address"
-              render={(props) => (
-                <UpdateAddressPage handler={this.handler} {...this.state} {...props}  />
-              )} />
-      </Switch>
+          <Route path="/email_not_provided"
+                render={(props) => (
+                  <EmailNotProvidedPage handler={this.handler} {...this.state} {...props} />
+                )} />
+          <Route path="/record_lookup" 
+                  render={(props) => (
+                    <RecordLookupPage handler={this.handler} {...this.state} {...props} />
+                  )} />
+          <Route path="/email_not_found"
+                render={(props) => (
+                  <EmailNotFoundPage handler={this.handler} {...this.state} {...props} />
+                )} />
+          <Route path="/thank_you"
+                render={(props) => (
+                  <ThankYouPage {...this.state} {...props}  />
+                )} />
+          <Route path="/confirm_address"
+                render={(props) => (
+                  <ConfirmAddressPage handler={this.handler} {...this.state} {...props}  />
+                )} />
+          <Route path="/update_address"
+                render={(props) => (
+                  <UpdateAddressPage handler={this.handler} {...this.state} {...props}  />
+                )} />
+        </Switch>
+      </div>
     );
   };
 };

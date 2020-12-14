@@ -5,11 +5,14 @@ class RecordLookupPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            record: null
+            record: null,
+            errors: null,
         }
     };
 
-    async nextPage() {
+    async nextPage(status) {
+        console.log(status);
+
         this.props.handler(this.state);
 
         if(this.state.record.fields) {
@@ -26,21 +29,24 @@ class RecordLookupPage extends Component {
             headers: { 'Content-Type': 'Application/JSON' },
             body: JSON.stringify({email: this.props.providedEmail})
         }).then(res => {
-            if(res.status == 422) {
-                return res.status;
-            } else if(res.status == 400) {
-                return { record: null }
-            } else {
-                return res.json();
-            }
+            return res.json();
         }));
         
         return data;
     }
+
+    handleErrors() {
+        this.props.handler(this.state);
+    }
     
     async componentDidMount() {
-        await this.request().then(res => this.setState({record: res}));
-        await this.nextPage();
+        await this.request().then(res => {
+            if(res.errors) {
+                this.setState({
+                    errors: res.errors
+                }, () => this.handleErrors());
+            }
+        });
     }
 
     render() {
