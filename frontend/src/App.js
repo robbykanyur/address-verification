@@ -9,6 +9,9 @@ import UpdateAddressPage from './Pages/UpdateAddressPage'
 import ThankYouPage from './Pages/ThankYouPage';
 import RecordLookupPage from './Pages/RecordLookupPage';
 
+import '../node_modules/uikit/dist/css/uikit.min.css';
+import '../node_modules/uikit/dist/js/uikit.min.js';
+
 class Main extends Component {
   constructor() {
     super()
@@ -33,6 +36,8 @@ class Main extends Component {
             <p key={index}>{error.msg}</p>
           })}
         </div>
+
+        <h1 className="uk-heading-large">Address Verification</h1>
 
         <Switch>
           <Route exact path="/" 
