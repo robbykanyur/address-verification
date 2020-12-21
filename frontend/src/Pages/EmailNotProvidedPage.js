@@ -26,10 +26,10 @@ class EmailNotProvidedPage extends Component {
     render() {
         return(
             <div>
-                <p>Please enter your email address:</p>
+                <p className="uk-text-large">Please enter your email address:</p>
                 <form onSubmit={this.submitAndNavigate}>
-                    <input type="text" onChange={this.onInputChange} />
-                    <input type="submit" value="Submit" />
+                    <input className="uk-input" type="text" onChange={this.onInputChange} /><br /><br />
+                    <input className="uk-button uk-button-primary uk-button-large" type="submit" value="Submit" />
                 </form>
             </div>
         )
