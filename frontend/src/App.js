@@ -32,6 +32,25 @@ class Main extends Component {
   render() {
     return (
       <div>
+        <div id="nav">
+          <div id="nav-wrapper">
+            <div id="logo">
+              <img src="/fairway-logo.png" width="100%" alt="" />
+            </div>
+            <div id="contact">
+              <div id="profile">
+                <img src="/profile-keilen-rj.png" width="100%" alt="" />
+              </div>
+              <div id="text">
+                <strong>RJ Keilen</strong><br />
+                SVP / Area Manager<br />
+                NMLS #204420<br />
+                Cell: 480-703-3131
+              </div>
+            </div>
+          </div>
+        </div>
+
         <div id="errors">
           {this.state.errors && this.state.errors.map((error, index) => {
             <p key={index}>{error.msg}</p>
@@ -70,6 +89,11 @@ class Main extends Component {
                       <UpdateAddressPage handler={this.handler} {...this.state} {...props}  />
                     )} />
             </Switch>
+          </div>
+        </div>
+        <div id="footer">
+          <div id="eho">
+            <img src="/eho-logo.png" width="100%" alt="" />
           </div>
         </div>
       </div>
