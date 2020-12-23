@@ -92,6 +92,9 @@ class Main extends Component {
           </div>
         </div>
         <div id="footer">
+          <div id="disclaimer">
+          Fairway Independent Mortgage Corporation | NMLS Entity ID #2289 | 4750 S. Biltmore Lane | Madison, WI 53718
+          </div>
           <div id="eho">
             <img src="/eho-logo.png" width="100%" alt="" />
           </div>
