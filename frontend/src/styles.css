@@ -89,3 +89,10 @@ body {
     width: 50px;
     margin: 0 auto 25px;
 }
+
+#footer #disclaimer {
+    text-align: center;
+    color: white;
+    margin-bottom: 12px;
+    font-size: 10px;
+}
